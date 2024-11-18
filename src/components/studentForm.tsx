@@ -66,7 +66,7 @@ export  function StudentForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Enter Your Full Name</FormLabel>
               <FormControl>
                 <Input placeholder="John Doe" {...field} />
               </FormControl>
@@ -132,6 +132,7 @@ export  function StudentForm() {
                   <SelectItem value="EC">Electronics & Communication</SelectItem>
                   <SelectItem value="ME">Mechanical Engineering</SelectItem>
                   <SelectItem value="CV">Civil Engineering</SelectItem>
+                  <SelectItem value="CB">Computer Science and Business Systems</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />

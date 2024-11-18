@@ -11,18 +11,20 @@ model Admin {
   id        Int      @id @default(autoincrement())
   name      String
   email     String   @unique
-  password  String   // Use hashed passwords
+  password  String   
   classes   Class[]  @relation("AdminClasses") // 1-to-Many relation with Class
   createdAt DateTime @default(now())
 }
 
 model Student {
   id             Int       @id @default(autoincrement())
-  name           String
+  Fname           String
   usn            String    @unique
-  email          String    @unique
-  password       String    // Use hashed passwords
-  accomplishments String?  // Optional field for achievements
+  Semester       Int
+  Branch         String
+  password       String    
+  academicAccomplishments String?  
+  sportsAccomplishments    String?
   classEnrollments ClassEnrollment[] // Many-to-Many relation via join table
   createdAt      DateTime  @default(now())
 }
