@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String   // Use hashed passwords
+  classes   Class[]  @relation("AdminClasses") // 1-to-Many relation with Class
+  createdAt DateTime @default(now())
+}
+
+model Student {
+  id             Int       @id @default(autoincrement())
+  name           String
+  usn            String    @unique
+  email          String    @unique
+  password       String    // Use hashed passwords
+  accomplishments String?  // Optional field for achievements
+  classEnrollments ClassEnrollment[] // Many-to-Many relation via join table
+  createdAt      DateTime  @default(now())
+}
+
+model Class {
+  id        Int       @id @default(autoincrement())
+  name      String
+  code      String    @unique // Unique code for students to join
+  adminId   Int       // FK to the Admin who created the class
+  admin     Admin     @relation("AdminClasses", fields: [adminId], references: [id])
+  enrollments ClassEnrollment[] // Many-to-Many relation via join table
+  createdAt DateTime  @default(now())
+}
+
+// Join table for many-to-many relation between Student and Class
+model ClassEnrollment {
+  id        Int      @id @default(autoincrement())
+  studentId Int
+  classId   Int
+  joinedAt  DateTime @default(now())
+
+  student   Student  @relation(fields: [studentId], references: [id])
+  class     Class    @relation(fields: [classId], references: [id])
+
+  @@unique([studentId, classId]) // Ensure a student can join a class only once
+}
