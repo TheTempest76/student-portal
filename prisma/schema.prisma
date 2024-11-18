@@ -20,9 +20,8 @@ model Student {
   id             Int       @id @default(autoincrement())
   Fname           String
   usn            String    @unique
-  Semester       Int
-  Branch         String
-  password       String    
+  Semester       String
+  Branch         String 
   academicAccomplishments String?  
   sportsAccomplishments    String?
   classEnrollments ClassEnrollment[] // Many-to-Many relation via join table
