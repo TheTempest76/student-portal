@@ -23,6 +23,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -42,6 +44,7 @@ const formSchema = z.object({
 })
 
 export  function StudentForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -180,7 +183,9 @@ export  function StudentForm() {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <div onClick={() => router.push("/student-dashboard")}>
+         <Button type="submit" >Submit</Button>
+        </div>
       </form>
     </Form>
   )
